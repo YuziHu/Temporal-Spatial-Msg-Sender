@@ -8,4 +8,3 @@
 <input placeholder="enter msg" bindinput="getMsg"></input>
 <button bindtap="saveMsg">Save msg</button>
 <button bindtap='sendMsgSingleUser'>Send Subscription Msg to Single User</button>
-<button bindtap='sendMsgMultiUser'>Send Subscription Msg to Multiple Users</button>

@@ -74,18 +74,6 @@ Page({
             this.send('o-gen5CF_b1vozM6BanyCcvX0Yo8', msg)
         }
     },
-    // send subscription msg to multiple users
-    sendMsgMultiUser() {
-        if (msg == null || msg == '') {
-            wx.showToast({
-                icon: 'none',
-                title: 'please enter msg'
-            })
-        }
-        else {
-            return
-        }
-    },
 
     // send msg
     send(openid, msg) {
