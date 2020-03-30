@@ -1,10 +1,2 @@
-<!-- <button bindtap="getOpenId">Get Open Id</button> -->
-<!-- <button bindtap="authorize">Get user authorization</button> -->
-<picker mode='date' value='{{date}}' start='2000-01-01' end="" bindchange='bindDateChange'>
-    <view class="date" name='date'>
-        <input name='addDate' value='{{date}}' placeholder="Pick a date"></input>
-    </view>
-</picker>
-<input placeholder="enter msg" bindinput="getMsg"></input>
-<button bindtap="saveMsg">Save msg</button>
-<!-- <button bindtap='sendMsgSingleUser'>Send Subscription Msg to Single User</button> -->
+<button bindtap='temporal'>Temporal Alarm</button>
+<button bindtap='spatial'>Spatial Alarm</button>
