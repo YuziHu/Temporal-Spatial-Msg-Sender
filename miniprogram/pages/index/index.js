@@ -4,13 +4,15 @@ const app = getApp()
 
 
 let msg = ''
+let openid = ''
+let date = ''
 Page({
     // get user openid
     getOpenId() {
         wx.cloud.callFunction({
             name: "getopenId"
         }).then(res => {
-            console.log("get openid success", res['result']['openid'])
+            // console.log("get openid success", res['result']['openid'])
             this.setData({
                 _openid: res['result']['openid']
             })
@@ -19,14 +21,16 @@ Page({
         })
     },
     // authorize
-    authorize() {
+    async authorize() {
         wx.requestSubscribeMessage({
             tmplIds: ["aDFqqiWr-YM6VBW4L6O9b-_7gvtdacntQMO0FTxdLCw"],
             success(res) {
                 console.log("authorize success", res)
+                return res
             },
             fail(err) {
                 console.log("authorize fail", err)
+                return err
             }
         })
     },
@@ -40,26 +44,48 @@ Page({
     // bind date change
     bindDateChange(e) {
         console.log(e.detail.value)
+        date = e.detail.value
         this.setData({
             date: e.detail.value
         })
     },
     // save msg to db
-    saveMsg() {
-        console.log(this.data._openid)
-        console.log(this.data.date)
-        console.log(this.data.msg)
-        wx.cloud.callFunction({
-            name: 'saveMsg',
-            data: {
-                openid: this.data._openid,
-                date: this.data.date,
-                msg: this.data.msg
+    async saveMsg() {
+        // authorize
+        wx.requestSubscribeMessage({
+            tmplIds: ["aDFqqiWr-YM6VBW4L6O9b-_7gvtdacntQMO0FTxdLCw"],
+            success(res) {
+                console.log("authorize success", res)
+                // get openid
+                wx.cloud.callFunction({
+                    name: "getopenId"
+                }).then(res => {
+                    // console.log("get openid success", res['result']['openid'])
+                    // this.setData({
+                    //     _openid: res['result']['openid']
+                    // })
+                    openid = res['result']['openid']
+                    // save msg
+                    wx.cloud.callFunction({
+                        name: 'saveMsg',
+                        data: {
+                            openid: openid,
+                            date: date,
+                            msg: msg
+                        }
+                    }).then(res => {
+                        console.log("save msg success", res)
+                    }).catch(err => {
+                        console.log("save msg fail", err)
+                    })
+                }).catch(err => {
+                    console.log("get openid fail", err)
+                })
+            },
+            fail(err) {
+                console.log("authorize fail", err)
+                // return err
             }
-        }).then(res => {
-            console.log("save msg success", res)
-        }).catch(err => {
-            console.log("save msg fail", err)
         })
     },
     // send subscription msg to a single user
@@ -72,18 +98,6 @@ Page({
         }
         else {
             this.send('o-gen5CF_b1vozM6BanyCcvX0Yo8', msg)
-        }
-    },
-    // send subscription msg to multiple users
-    sendMsgMultiUser() {
-        if (msg == null || msg == '') {
-            wx.showToast({
-                icon: 'none',
-                title: 'please enter msg'
-            })
-        }
-        else {
-            return
         }
     },
 
