@@ -1,2 +1,17 @@
-<!--miniprogram/pages/spatial/spatial.wxml-->
-<text>miniprogram/pages/spatial/spatial.wxml</text>
+<!--pages/map-control/map-control.wxml-->
+<view class="map-control-container">
+  <view class="map-control-content">
+    <view class="introduce plr20">此示例展示地图提供的控件产品，包含比例尺、指南针、定位控件。</view>
+    <view class="map-container plr20">
+			<map
+				class="map"
+				id="map"
+				latitude="{{location.latitude}}"
+				longitude="{{location.longitude}}"
+				show-location="{{showPosition}}"
+				scale="16"
+			>
+			</map>
+    </view>
+  </view>
+</view>
