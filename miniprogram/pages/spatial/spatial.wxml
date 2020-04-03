@@ -1,7 +1,6 @@
 <!--pages/map-control/map-control.wxml-->
 <view class="map-control-container">
   <view class="map-control-content">
-    <view class="introduce plr20">此示例展示地图提供的控件产品，包含比例尺、指南针、定位控件。</view>
     <view class="map-container plr20">
 			<map
 				class="map"
@@ -13,5 +12,18 @@
 			>
 			</map>
     </view>
+
+    <view class="feature-content border-bottom border-top">
+		<text class="feature-label">发起位置</text>
+		<view class="feature-txt" bindtap="onChooseLocation">
+			<text wx:if="{{!chooseLocation}}">Choose Location</text>
+			<text class="active" wx:else>{{location.name}}</text>
+			<image class="right-arrow" src="{{imgs.rightArrow}}"></image>
+		</view>
+	</view>
+
+    <input placeholder="Enter Message" bindinput="getMsg"></input>
+    <button bindtap="saveMsg">Save msg</button>
+    
   </view>
 </view>

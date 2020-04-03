@@ -154,3 +154,52 @@ page {
   line-height: 36rpx;
   word-break: break-all;
 }
+
+/* custom */
+.right-arrow {
+	vertical-align: top;
+	margin-left: 4px;
+	width: 16px;
+	height: 16px;
+}
+
+.feature-content {
+	padding-right: 20px;
+  height: 56px;
+  display: flex;
+	justify-content: space-between;
+  line-height: 56px;
+}
+
+.feature-label {
+  font-size: 14px;
+  color: #222;
+}
+.feature-txt {
+  font-size: 14px;
+	display:flex;
+	align-items: center;
+  color:rgba(34,34,34,0.5);
+}
+
+.feature-txt-item {
+	position: relative;
+	padding-left: 15px;
+	margin-right: 15px;
+}
+.feature-txt-item:last-child {
+	margin-right: 0;
+}
+.feature-txt-item::before {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: -5px;
+    content: '';
+    height:10px;
+    width:1px;
+    background: rgba(34,34,34,0.1);
+}
+.feature-txt-item:first-child::before {
+	display: none;
+}

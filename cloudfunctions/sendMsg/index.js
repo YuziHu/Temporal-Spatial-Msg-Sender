@@ -11,7 +11,7 @@ const db = cloud.database()
 exports.main = async (event, context) => {
     const taskQueue = []
 
-    let taskRes = await db.collection('queue').limit(100).get()
+    let taskRes = await db.collection('TemporalQueue').limit(100).get()
     let tasks = taskRes.data
     let now = new Date().toJSON().slice(0, 10).replace(/-/g, '-')
     console.log(now)
@@ -23,7 +23,7 @@ exports.main = async (event, context) => {
             if (tasks[i].date.localeCompare(now) <= 0) {
                 console.log(tasks[i].date)
                 taskQueue.push(tasks[i])
-                await db.collection('queue').doc(tasks[i]._id).remove()
+                await db.collection('TemporalQueue').doc(tasks[i]._id).remove()
             }
         }
     } catch (err) {

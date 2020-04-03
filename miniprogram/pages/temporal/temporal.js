@@ -50,7 +50,8 @@ Page({
         })
     },
     // save msg to db
-    async saveMsg() {
+    saveMsg() {
+        let that = this
         // authorize
         wx.requestSubscribeMessage({
             tmplIds: ["aDFqqiWr-YM6VBW4L6O9b-_7gvtdacntQMO0FTxdLCw"],
@@ -61,17 +62,18 @@ Page({
                     name: "getopenId"
                 }).then(res => {
                     // console.log("get openid success", res['result']['openid'])
-                    // this.setData({
-                    //     _openid: res['result']['openid']
-                    // })
+                    that.setData({
+                        _openid: res['result']['openid']
+                    })
+                    // console.log(that.data._openid)
                     openid = res['result']['openid']
                     // save msg
                     wx.cloud.callFunction({
                         name: 'saveMsg',
                         data: {
-                            openid: openid,
-                            date: date,
-                            msg: msg
+                            openid: that.data._openid,
+                            date: that.data.date,
+                            msg: that.data.msg
                         }
                     }).then(res => {
                         console.log("save msg success", res)

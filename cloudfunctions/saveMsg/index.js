@@ -10,13 +10,21 @@ const db = cloud.database()
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
-
-    return await db.collection("queue").add({
+    if(!event.targetLocation){
+        return await db.collection("TemporalQueue").add({
+            data: {
+                openid: event.openid,
+                date: event.date,
+                message: event.msg
+            }
+        })
+    }
+    return await db.collection("SpatialQueue").add({
         data: {
             openid: event.openid,
-            date: event.date,
+            targetLocation: event.targetLocation,
             message: event.msg,
-            sended: false
+            radius: event.radius
         }
     })
 
