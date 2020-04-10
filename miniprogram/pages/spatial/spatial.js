@@ -53,6 +53,15 @@ Page({
     // save msg to db
     saveMsg() {
         let that = this
+        // check if the user chooses a location
+        if(this.data.chooseLocation==null){
+            wx.showToast({
+                title: 'Please choose a location',
+                icon: 'none',
+                duration: 2000
+            })
+            return
+        }
         // authorize
         wx.requestSubscribeMessage({
             tmplIds: ["1x06cU9u9SIMV0Ot-XZIaM6uTiosa13C2Ry3R8hv9iM"],

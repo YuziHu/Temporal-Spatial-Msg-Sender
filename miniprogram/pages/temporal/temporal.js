@@ -7,33 +7,6 @@ let msg = ''
 let openid = ''
 let date = ''
 Page({
-    // get user openid
-    // getOpenId() {
-    //     wx.cloud.callFunction({
-    //         name: "getopenId"
-    //     }).then(res => {
-    //         // console.log("get openid success", res['result']['openid'])
-    //         this.setData({
-    //             _openid: res['result']['openid']
-    //         })
-    //     }).catch(err => {
-    //         console.log("get openid fail", err)
-    //     })
-    // },
-    // authorize
-    // async authorize() {
-    //     wx.requestSubscribeMessage({
-    //         tmplIds: ["aDFqqiWr-YM6VBW4L6O9b-_7gvtdacntQMO0FTxdLCw"],
-    //         success(res) {
-    //             console.log("authorize success", res)
-    //             return res
-    //         },
-    //         fail(err) {
-    //             console.log("authorize fail", err)
-    //             return err
-    //         }
-    //     })
-    // },
     getMsg(e) {
         console.log(e.detail.value)
         msg = e.detail.value
