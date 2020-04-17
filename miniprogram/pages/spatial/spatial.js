@@ -50,6 +50,14 @@ Page({
         });
     },
 
+    getMsg(e) {
+        console.log(e.detail.value)
+        // msg = e.detail.value
+        this.setData({
+            msg: e.detail.value
+        })
+    },
+
     // save msg to db
     saveMsg() {
         let that = this
@@ -75,14 +83,14 @@ Page({
                     that.setData({
                         _openid: res['result']['openid']
                     })
+                    console.log(that.data.msg)
                     // save msg
                     wx.cloud.callFunction({
                         name: 'saveMsg',
                         data: {
                             openid: that.data._openid,
                             targetLocation: that.data.chooseLocation,
-                            message: that.data.msg,
-                            radius: that.data.radius
+                            message: that.data.msg
                         }
                     }).then(res => {
                         console.log("save msg success", res)

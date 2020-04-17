@@ -23,8 +23,7 @@ exports.main = async (event, context) => {
         data: {
             openid: event.openid,
             targetLocation: event.targetLocation,
-            message: event.msg,
-            radius: event.radius
+            message: event.message
         }
     })
 
