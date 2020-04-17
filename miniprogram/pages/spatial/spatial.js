@@ -106,28 +106,20 @@ Page({
             }
         })
     },
-    // 激活定位控件
-    // onChangeShowPosition(event) {
-    //     const { value } = event.detail;
-    //     if (value) {
-    //         wx.getLocation({
-    //             type: 'gcj02',
-    //             success: (res) => {
-    //                 console.log(res)
-    //                 const { latitude, longitude } = res;
-    //                 this.setData({
-    //                     location: {
-    //                         latitude,
-    //                         longitude
-    //                     }
-    //                 });
-    //             }
-    //         });
-    //     }
-    //     this.setData({
-    //         showPosition: value
-    //     });
-    // },
+    sendMsg(){
+        let that = this
+        wx.cloud.callFunction({
+            name: 'sendMsgSpatial',
+            data: {
+                longitude: that.data.longitude,
+                latitude: that.data.latitude
+            }
+        }).then(res => {
+            console.log('send spatial msg success', res)
+        }).catch(err => {
+            console.log('send spatial msg fail', err)
+        })
+    },
     onShareAppMessage: function () {
 
     }

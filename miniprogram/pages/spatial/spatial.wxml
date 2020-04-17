@@ -24,6 +24,8 @@
 
     <input placeholder="Enter Message" bindinput="getMsg"></input>
     <button bindtap="saveMsg">Save msg</button>
+
+    <button bindtap="sendMsg">test send msg</button>
     
   </view>
 </view>
