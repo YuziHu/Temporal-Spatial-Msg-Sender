@@ -108,11 +108,12 @@ Page({
     },
     sendMsg(){
         let that = this
+        console.log(`current latitude: ${this.data.location.latitude} longitude: ${this.data.location.longitude}`)
         wx.cloud.callFunction({
             name: 'sendMsgSpatial',
             data: {
-                longitude: that.data.longitude,
-                latitude: that.data.latitude
+                longitude: that.data.location.longitude,
+                latitude: that.data.location.latitude
             }
         }).then(res => {
             console.log('send spatial msg success', res)

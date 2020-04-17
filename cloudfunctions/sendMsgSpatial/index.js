@@ -13,9 +13,8 @@ exports.main = async (event, context) => {
     const r = 6371
 
     // extract current location from parameters passed in
-    let currentLocation = event.currentLocation
-    let currentLat= event.latitude
-    let currentLong = event.longitude
+    let lat1= event.latitude
+    let lon1 = event.longitude
 
     // get the first 100 messages from spatial message queue
     let taskRes = await db.collection('SpatialQueue').limit(100).get()
@@ -25,22 +24,20 @@ exports.main = async (event, context) => {
         for(let i=0; i<tasks.length; i++){
             let task = tasks[i]
             let targetLoc = task.targetLocation
-            let targetLat = targetLoc.latitude
-            let targetLong = targetLoc.longitude
+            let lat2 = targetLoc.latitude
+            let lon2 = targetLoc.longitude
             // calculate the distance between two points
-            let dLat = (targetLat-currentLat) * (Math.PI/180)
-            let dLon = (targetLong - currentLong) * (Math.PI / 180)
+            let dLat = (lat2 - lat1) * Math.PI / 180
+            let dLon = (lon2 - lon1) * Math.PI / 180
             let a =
-                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(targetLat*(Math.PI/180)) * Math.cos(currentLat*(Math.PI/180)) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2)
-            let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-            let d = r * c // distance in km
+                0.5 - Math.cos(dLat) / 2 +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                (1 - Math.cos(dLon)) / 2
+            let d = r * 2 * Math.asin(Math.sqrt(a))
 
-            // check if conditions were met
-            if(true){
+            // check if conditions were met (default 2km)
+            if(d < 2){
                 taskQueue.push(tasks[i])
-                await db.collection('SpatialQueue').doc(tasks[i]._id).remove()
             }
         }
     } catch(err){
