@@ -21,6 +21,39 @@ Page({
 
 
     onLoad: function(options){
+        let that = this
+        wx.getLocation({
+            type: 'gcj02',
+            success: (res) => {
+                console.log(res)
+                const { latitude, longitude } = res;
+                this.setData({
+                    location: {
+                        latitude,
+                        longitude
+                    }
+                });
+            }
+        });
+        this.setData({
+            showPosition: true
+        });
+        wx.startLocationUpdateBackground({
+            success(res) {
+                console.log('开启后台定位', res)
+            },
+            fail(res) {
+                console.log('开启后台定位失败', res)
+            }
+        })
+        wx.onLocationChange(function (res) {
+            console.log('location change', res)
+            that.getCurrentLocation()
+            that.sendMsg()
+        })
+    },
+
+    getCurrentLocation(){
         wx.getLocation({
             type: 'gcj02',
             success: (res) => {
@@ -57,6 +90,7 @@ Page({
             msg: e.detail.value
         })
     },
+
 
     // save msg to db
     saveMsg() {
@@ -108,7 +142,6 @@ Page({
     },
     sendMsg(){
         let that = this
-        console.log(`current latitude: ${this.data.location.latitude} longitude: ${this.data.location.longitude}`)
         wx.cloud.callFunction({
             name: 'sendMsgSpatial',
             data: {

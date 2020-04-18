@@ -38,6 +38,7 @@ exports.main = async (event, context) => {
             // check if conditions were met (default 2km)
             if(d < 2){
                 taskQueue.push(tasks[i])
+                await db.collection('SpatialQueue').doc(tasks[i]._id).remove()
             }
         }
     } catch(err){
@@ -45,12 +46,15 @@ exports.main = async (event, context) => {
     }
     for (let i = 0; i < taskQueue.length; i++) {
         try {
+            console.log(`thing1: ${taskQueue[i].targetLocation.name}`)
+            console.log(`thing2: ${taskQueue[i].message}`)
+            let name = taskQueue[i].targetLocation.name
             const result = await cloud.openapi.subscribeMessage.send({
                 touser: taskQueue[i].openid,
                 page: 'pages/index/index',
                 data: {
                     thing1: {
-                        value: taskQueue[i].targetLocation.name
+                        value: `You are around ${taskQueue[i].locationName}`
                     },
                     thing2: {
                         value: taskQueue[i].message
