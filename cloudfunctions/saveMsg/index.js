@@ -23,8 +23,9 @@ exports.main = async (event, context) => {
         data: {
             openid: event.openid,
             targetLocation: event.targetLocation,
-            locationName: event.targetLocation.name,
-            message: event.message
+            title: "Near "+event.targetLocation.name.toString(),
+            message: event.message,
+            sent: false
         }
     })
 

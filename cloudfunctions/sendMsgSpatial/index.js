@@ -35,10 +35,32 @@ exports.main = async (event, context) => {
                 (1 - Math.cos(dLon)) / 2
             let d = r * 2 * Math.asin(Math.sqrt(a))
 
+            // set sent to false if user leaves the area
+            if (d > 2 && tasks[i].sent) {
+                try {
+                    await db.collection('SpatialQueue').doc(task._id).update({
+                        data: {
+                            sent: false
+                        }
+                    })
+                } catch (e) {
+                    console.error(e)
+                }
+            }
+
             // check if conditions were met (default 2km)
-            if(d < 2){
+            if(d < 2 && !task.sent){
                 taskQueue.push(tasks[i])
-                await db.collection('SpatialQueue').doc(tasks[i]._id).remove()
+                try {
+                    await db.collection('SpatialQueue').doc(task._id).update({
+                        data: {
+                            sent: true
+                        }
+                    })
+                } catch (e) {
+                    console.error(e)
+                }
+                // await db.collection('SpatialQueue').doc(tasks[i]._id).remove()
             }
         }
     } catch(err){
@@ -46,15 +68,15 @@ exports.main = async (event, context) => {
     }
     for (let i = 0; i < taskQueue.length; i++) {
         try {
-            console.log(`thing1: ${taskQueue[i].targetLocation.name}`)
+            let title = taskQueue[i].title.toString()
+            console.log(`thing1: ${taskQueue[i].title}`)
             console.log(`thing2: ${taskQueue[i].message}`)
-            let name = taskQueue[i].targetLocation.name
             const result = await cloud.openapi.subscribeMessage.send({
                 touser: taskQueue[i].openid,
                 page: 'pages/index/index',
                 data: {
                     thing1: {
-                        value: `You are around ${taskQueue[i].locationName}`
+                        value: title
                     },
                     thing2: {
                         value: taskQueue[i].message
