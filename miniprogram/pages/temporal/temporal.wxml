@@ -1,7 +1,17 @@
-<picker mode='date' value='{{date}}' start='2000-01-01' end="" bindchange='bindDateChange'>
-    <view class="date" name='date'>
-        <input name='addDate' value='{{date}}' placeholder="Pick a date"></input>
+
+<view class="input_text">
+
+  <view>Pick Receive Time</view>
+
+  <picker mode="multiSelector" value="{{dateTime}}" bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" range="{{dateTimeArray}}">
+    <view>
+      {{dateTimeArray[0][dateTime[0]]}}-{{dateTimeArray[1][dateTime[1]]}}-{{dateTimeArray[2][dateTime[2]]}} {{dateTimeArray[3][dateTime[3]]}}:{{dateTimeArray[4][dateTime[4]]}}:{{dateTimeArray[5][dateTime[5]]}}
     </view>
-</picker>
-<input placeholder="enter msg" bindinput="getMsg"></input>
-<button bindtap="saveMsg">Save msg</button>
+  </picker>
+</view>
+
+
+<textarea class="textarea" value="{{value}}"bindinput="getMsg" placeholder="{{placeholder}}" placeholder-class="placeholder" maxlength="{{maxlength}}" focus="{{focus}}" auto-height="{{auto-height}}" show-confirm-bar="{{show-confirm-bar}}"></textarea>
+
+<text>\n</text>
+<button bindtap="saveMsg">Save Message</button>

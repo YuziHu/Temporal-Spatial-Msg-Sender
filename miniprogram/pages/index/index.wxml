@@ -1,2 +1,4 @@
-<button bindtap='temporal'>Temporal Alarm</button>
-<button bindtap='spatial'>Spatial Alarm</button>
+<view class='wrapper'>
+<button bindtap='temporal' class='temp'>Temporal Alarm</button>
+<button bindtap='spatial' class='spacial'>Spatial Alarm</button>
+</view>
