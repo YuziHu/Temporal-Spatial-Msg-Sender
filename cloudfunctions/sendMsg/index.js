@@ -13,12 +13,13 @@ exports.main = async (event, context) => {
 
     let taskRes = await db.collection('TemporalQueue').limit(100).get()
     let tasks = taskRes.data
-    let now = new Date().toJSON().slice(0, 10).replace(/-/g, '-')
-    console.log(now)
+    // let now = new Date().toJSON().slice(0, 10).replace(/-/g, '-')
+    let now = new Date() / 1000 | 0
+    console.log(`now: ${now}`)
 
     try {
         for (let i = 0; i < tasks.length; i++) {
-            console.log(now)
+            console.log(tasks[i].date)
             // tasks[i].date.localeCompare(now) <= 0
             if (tasks[i].date.localeCompare(now) <= 0) {
                 console.log(tasks[i].date)
