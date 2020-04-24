@@ -77,6 +77,7 @@ Page({
   },
   changeDateTime(e) {
     this.setData({ dateTime: e.detail.value });
+    console.log(this.data.dateTime)
   },
   changeDateTime1(e) {
     this.setData({ dateTime1: e.detail.value });
@@ -124,6 +125,12 @@ Page({
   },
   // save msg to db
   async saveMsg() {
+    let date = this.data.dateTime
+    date[1] += 1
+    date[2] += 1
+    console.log(`date: ${date}`)
+    let targetDateTime = new Date(date[0]+2000, date[1], date[2], date[3], date[4], date[5], 0)
+    console.log(`targetDateTime: ${targetDateTime}`)
     // authorize
     wx.requestSubscribeMessage({
       tmplIds: ["aDFqqiWr-YM6VBW4L6O9b-_7gvtdacntQMO0FTxdLCw"],

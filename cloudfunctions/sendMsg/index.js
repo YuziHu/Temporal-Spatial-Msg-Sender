@@ -15,15 +15,19 @@ exports.main = async (event, context) => {
     let tasks = taskRes.data
     // let now = new Date().toJSON().slice(0, 10).replace(/-/g, '-')
     let now = new Date() / 1000 | 0
-    console.log(`now: ${now}`)
+    // console.log(`now: ${now}`)
 
     try {
         for (let i = 0; i < tasks.length; i++) {
-            console.log(tasks[i].date)
+            // console.log(tasks[i].date)
+            let date = tasks[i].date
+            let targetDateTime = new Date(date[0] + 2000, date[1], date[2], date[3], date[4], date[5], 0) / 1000 | 0
+            // console.log(`targetDateTime: ${targetDateTime}`)
             // tasks[i].date.localeCompare(now) <= 0
-            if (tasks[i].date.localeCompare(now) <= 0) {
+            if (targetDateTime <= now) {
                 console.log(tasks[i].date)
                 taskQueue.push(tasks[i])
+                tasks[i].date = `${date[0] + 2000}-${date[1]}-${date[2]} ${date[3]}:${date[4]}:${date[5]}`
                 await db.collection('TemporalQueue').doc(tasks[i]._id).remove()
             }
         }
@@ -31,6 +35,7 @@ exports.main = async (event, context) => {
         console.log(err)
     }
     for (let i = 0; i < taskQueue.length; i++) {
+        console.log(`taskQueue[i].date: ${taskQueue[i].date}`)
         try {
             const result = await cloud.openapi.subscribeMessage.send({
                 touser: taskQueue[i].openid,
