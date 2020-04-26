@@ -33,7 +33,7 @@ function getMonthDay(year, month) {
       array = flag ? getLoopArray(1, 29) : getLoopArray(1, 28)
       break;
     default:
-      array = '月份格式不正确，请重新输入！'
+      array = 'Month format is incorrect, please re-enter！'
   }
   return array;
 }
@@ -50,14 +50,13 @@ function getNewDateArry() {
   return [year, mont, date, hour, minu, seco];
 }
 function dateTimePicker(startYear, endYear, date) {
-  // 返回默认显示的数组和联动数组的声明
+  // Returns the declaration of the array and linkage array displayed by default
   var dateTime = [], dateTimeArray = [[], [], [], [], [], []];
   var start = startYear || 1978;
   var end = endYear || 2100;
-  // 默认开始显示数据
+  // Start displaying data by default
   var defaultDate = date ? [...date.split(' ')[0].split('-'), ...date.split(' ')[1].split(':')] : getNewDateArry();
-  // 处理联动列表数据
-  /*年月日 时分秒*/
+  // Process linkage list data
   dateTimeArray[0] = getLoopArray(start, end);
   dateTimeArray[1] = getLoopArray(1, 12);
   dateTimeArray[2] = getMonthDay(defaultDate[0], defaultDate[1]);

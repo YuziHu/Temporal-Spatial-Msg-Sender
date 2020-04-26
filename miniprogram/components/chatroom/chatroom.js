@@ -66,7 +66,7 @@ Component({
         this.initWatch(initList.length ? {
           sendTimeTS: _.gt(initList[initList.length - 1].sendTimeTS),
         } : {})
-      }, '初始化失败')
+      }, 'Initialization failed')
     },
 
     async initOpenID() {
@@ -76,7 +76,7 @@ Component({
         this.setData({
           openId,
         })
-      }, '初始化 openId 失败')
+      }, 'Failed to initialize openId')
     },
 
     async initWatch(criteria) {
@@ -85,12 +85,12 @@ Component({
         const db = this.db
         const _ = db.command
 
-        console.warn(`开始监听`, criteria)
+        console.warn(`Start listening`, criteria)
         this.messageListener = db.collection(collection).where(this.mergeCommonCriteria(criteria)).watch({
           onChange: this.onRealtimeMessageSnapshot.bind(this),
           onError: e => {
             if (!this.inited || this.fatalRebuildCount >= FATAL_REBUILD_TOLERANCE) {
-              this.showError(this.inited ? '监听错误，已断开' : '初始化监听失败', e, '重连', () => {
+              this.showError(this.inited ? 'Listening error, disconnected' : 'Initial monitoring failed', e, 'Reconnecting', () => {
                 this.initWatch(this.data.chats.length ? {
                   sendTimeTS: _.gt(this.data.chats[this.data.chats.length - 1].sendTimeTS),
                 } : {})
@@ -102,11 +102,11 @@ Component({
             }
           },
         })
-      }, '初始化监听失败')
+      }, 'Initial monitoring failed')
     },
 
     onRealtimeMessageSnapshot(snapshot) {
-      console.warn(`收到消息`, snapshot)
+      console.warn(`Received the message`, snapshot)
 
       if (snapshot.type === 'init') {
         this.setData({
@@ -198,7 +198,7 @@ Component({
             } else return chat
           }),
         })
-      }, '发送文字失败')
+      }, 'Failed to send text')
     },
 
     async onChooseImage(e) {
@@ -244,10 +244,10 @@ Component({
                     imgFileID: res.fileID,
                   },
                 })
-              }, '发送图片失败')
+              }, 'Failed to send picture')
             },
             fail: e => {
-              this.showError('发送图片失败', e)
+              this.showError('Failed to send picture', e)
             },
           })
 

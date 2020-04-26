@@ -3,14 +3,14 @@ App({
   onLaunch: function () {
     
     if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
+      console.error('Please use the basic library of 2.2.3 or above to use cloud capabilities')
     } else {
       wx.cloud.init({
-        // env 参数说明：
-        //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
-        //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
-        //   如不填则使用默认环境（第一个创建的环境）
-        // env: 'my-env-id',
+// env parameter description:
+         // The env parameter determines which cloud environment resources the default cloud development call (wx.cloud.xxx) initiated by the applet will request to
+         // Please fill in the environment ID here, the environment ID can open the cloud console to view
+         // If not filled, use the default environment (the first environment created)
+         // env: 'my-env-id',
         traceUser: true,
       })
     }

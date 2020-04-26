@@ -8,12 +8,12 @@
         "backgroundColor": "#F6F6F6",
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#F6F6F6",
-        "navigationBarTitleText": "云开发 QuickStart",
+        "navigationBarTitleText": "Special Message Sender",
         "navigationBarTextStyle": "black"
     },
     "permission": {
         "scope.userLocation": {
-        "desc": "你的位置信息将用于小程序定位"
+        "desc": "Location is required"
         }
     },
     "requiredBackgroundModes": [

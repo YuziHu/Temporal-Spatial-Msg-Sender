@@ -2,7 +2,7 @@
 Page({
 
 	/**
-   * 页面的初始数据
+   * Initial data of the page
    */
     data: {
         imgs: {
@@ -40,10 +40,10 @@ Page({
         });
         wx.startLocationUpdateBackground({
             success(res) {
-                console.log('开启后台定位', res)
+              console.log('Turn on background positioning', res)
             },
             fail(res) {
-                console.log('开启后台定位失败', res)
+              console.log('Failed to enable background positioning', res)
             }
         })
         wx.onLocationChange(function (res) {

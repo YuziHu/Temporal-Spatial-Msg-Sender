@@ -8,13 +8,13 @@
 				latitude="{{location.latitude}}"
 				longitude="{{location.longitude}}"
 				show-location="{{showPosition}}"
-				scale="16"
+				scale="40"
 			>
 			</map>
     </view>
 
     <view class="feature-content border-bottom border-top">
-		<text class="feature-label">发起位置</text>
+		<text class="feature-label">Origin location</text>
 		<view class="feature-txt" bindtap="onChooseLocation">
 			<text wx:if="{{!chooseLocation}}">Choose Location</text>
 			<text class="active" wx:else>{{location.name}}</text>

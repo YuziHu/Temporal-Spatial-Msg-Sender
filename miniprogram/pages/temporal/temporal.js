@@ -1,5 +1,5 @@
 //index.js
-//获取应用实例
+//Get application examples
 const app = getApp()
 var dateTimePicker = require('../../Picker/dateTimePicker.js');
 
@@ -46,19 +46,19 @@ Page({
     startYear: 2000,
     endYear: 2050,
 
-    "value": "",   // 文本的内容
+    "value": "",   // The content of the text
     "placeholder": "Enter Your Message Here",
-    "maxlength": -1,  // 最大输入长度，设置为 -1 的时候不限制最大长度
+    "maxlength": -1,  // Maximum input length, when set to -1, the maximum length is not limited
     "focus": true,
-    "auto-height": true,  // 是否自动增高，设置auto-height时，style.height不生效
-    "adjust-position": true, // 键盘弹起时，是否自动上推页面
+    "auto-height": true,  // Whether to increase automatically, when setting auto-height, style.height does not take effect
+    "adjust-position": true, // Whether to push the page automatically when the keyboard pops up
 
   },
   onLoad() {
-    // 获取完整的年月日 时分秒，以及默认显示的数组
+    // Get the complete year, month, day, hour, minute and second, and the array displayed by default
     var obj = dateTimePicker.dateTimePicker(this.data.startYear, this.data.endYear);
     var obj1 = dateTimePicker.dateTimePicker(this.data.startYear, this.data.endYear);
-    // 精确到分的处理，将数组的秒去掉
+    // Accurate to minute processing, remove the seconds of the array
     var lastArray = obj1.dateTimeArray.pop();
     var lastTime = obj1.dateTime.pop();
 
@@ -113,7 +113,6 @@ Page({
     })
   },
 
-  // 我把msg用多行输入储存了
 
   // bind date change
   bindDateChange(e) {
