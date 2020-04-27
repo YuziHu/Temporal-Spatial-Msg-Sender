@@ -32,12 +32,17 @@ Page({
                         latitude,
                         longitude
                     }
+
                 });
+              
+
             }
         });
         this.setData({
             showPosition: true
         });
+      
+
         wx.startLocationUpdateBackground({
             success(res) {
               console.log('Turn on background positioning', res)

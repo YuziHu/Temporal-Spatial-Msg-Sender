@@ -9,6 +9,7 @@
 				longitude="{{location.longitude}}"
 				show-location="{{showPosition}}"
 				scale="40"
+        
 			>
 			</map>
     </view>
@@ -21,8 +22,8 @@
 			<image class="right-arrow" src="{{imgs.rightArrow}}"></image>
 		</view>
 	</view>
-
-    <input placeholder="Enter Message" bindinput="getMsg"></input>
+<textarea class="textarea" value="{{value}}"bindinput="getMsg" placeholder="{{placeholder}}" placeholder-class="placeholder" maxlength="{{maxlength}}" focus="{{focus}}" auto-height="{{auto-height}}" show-confirm-bar="{{show-confirm-bar}}"></textarea>
+    <!--<input placeholder="Enter Message" bindinput="getMsg"></input>-->
     <button bindtap="saveMsg">Save msg</button>
     
   </view>
